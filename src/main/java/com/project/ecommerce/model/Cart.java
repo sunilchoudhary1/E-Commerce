@@ -1,0 +1,35 @@
+package com.project.ecommerce.model;
+
+
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name="cart1")
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@Builder
+public class Cart {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
+
+    Integer cartTotal;
+
+    Integer numberOfItems;
+
+    @OneToOne
+    @JoinColumn
+    Customer customer;
+
+    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
+    List<Item> items = new ArrayList<>();
+
+}
